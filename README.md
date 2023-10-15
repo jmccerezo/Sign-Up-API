@@ -1,3 +1,5 @@
-# Users API
+# Sign-Up API
 
-## Register/Verify Email, Forgot/Reset Password
+## ASP.NET Core Web API
+
+### Register/Verify Email and Forgot/Reset Password

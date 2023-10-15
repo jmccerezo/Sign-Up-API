@@ -1,4 +1,4 @@
-﻿namespace UsersAPI.Models
+﻿namespace SignUpAPI.Models
 {
     public class User
     {

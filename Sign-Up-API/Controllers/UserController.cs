@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using UsersAPI.Models;
-using UsersAPI.Services;
+using SignUpAPI.Models;
+using SignUpAPI.Services;
 
-namespace UsersAPI.Controllers
+namespace SignUpAPI.Controllers
 {
     [Route("api/user")]
     [ApiController]

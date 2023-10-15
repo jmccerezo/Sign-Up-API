@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace UsersAPI.Migrations
+namespace SignUpAPI.Migrations
 {
     /// <inheritdoc />
     public partial class Initial_Migration : Migration

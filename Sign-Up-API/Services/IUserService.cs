@@ -1,6 +1,6 @@
-﻿using UsersAPI.Models;
+﻿using SignUpAPI.Models;
 
-namespace UsersAPI.Services
+namespace SignUpAPI.Services
 {
     public interface IUserService
     {

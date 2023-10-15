@@ -1,9 +1,9 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
-using UsersAPI.Models;
-using UsersAPI.Repository;
+using SignUpAPI.Models;
+using SignUpAPI.Repository;
 
-namespace UsersAPI.Services
+namespace SignUpAPI.Services
 {
     public class UserService : IUserService
     {

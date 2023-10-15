@@ -1,7 +1,7 @@
 global using Microsoft.EntityFrameworkCore;
-using UsersAPI.Data;
-using UsersAPI.Repository;
-using UsersAPI.Services;
+using SignUpAPI.Data;
+using SignUpAPI.Repository;
+using SignUpAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 

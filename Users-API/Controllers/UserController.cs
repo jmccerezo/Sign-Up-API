@@ -1,9 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using UserSignupApi.Models;
-using UserSignupApi.Services;
+﻿using Microsoft.AspNetCore.Mvc;
+using UsersAPI.Models;
+using UsersAPI.Services;
 
-namespace UserSignupApi.Controllers
+namespace UsersAPI.Controllers
 {
     [Route("api/user")]
     [ApiController]
@@ -19,8 +18,11 @@ namespace UserSignupApi.Controllers
         public async Task<ActionResult<User>> RegisterUser(UserRegisterRequest request)
         {
             var userExists = _userService.CheckExistingUser(request.Email);
+
             if (userExists)
+            {
                 return BadRequest("This email is already registered, please use another email.");
+            }
 
             var newUser = await _userService.RegisterUser(request);
 
@@ -31,6 +33,7 @@ namespace UserSignupApi.Controllers
         public async Task<IActionResult> LoginUser(UserLoginRequest request)
         {
             var user = await _userService.LoginUser(request);
+
             if (user == null)
             {
                 return BadRequest("Incorrect Username or Password");
@@ -48,14 +51,10 @@ namespace UserSignupApi.Controllers
         public async Task<IActionResult> VerifyUser(string token)
         {
             var user = await _userService.VerifyUser(token);
+
             if (user == null)
             {
                 return BadRequest("Invalid token.");
-            }
-
-            if (user.VerifiedAt != null)
-            {
-                return Ok("This user is already verified.");
             }
 
             return Ok("User verified successfully.");
@@ -65,6 +64,7 @@ namespace UserSignupApi.Controllers
         public async Task<IActionResult> ForgotPassword(string email)
         {
             var user = await _userService.ForgotPassword(email);
+
             if (user == null)
             {
                 return NotFound("User not found.");

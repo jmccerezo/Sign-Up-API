@@ -5,14 +5,14 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using UserSignupApi.Data;
+using UsersAPI.Data;
 
 #nullable disable
 
-namespace UserSignupApi.Migrations
+namespace UsersAPI.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230525073635_Initial_Migration")]
+    [Migration("20231015103947_Initial_Migration")]
     partial class Initial_Migration
     {
         /// <inheritdoc />
@@ -25,7 +25,7 @@ namespace UserSignupApi.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("UserSignupApi.Models.User", b =>
+            modelBuilder.Entity("UsersAPI.Models.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()

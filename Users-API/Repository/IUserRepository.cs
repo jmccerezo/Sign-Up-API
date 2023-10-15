@@ -1,6 +1,6 @@
-﻿using UserSignupApi.Models;
+﻿using UsersAPI.Models;
 
-namespace UserSignupApi.Repository
+namespace UsersAPI.Repository
 {
     public interface IUserRepository
     {

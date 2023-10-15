@@ -1,9 +1,9 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
-using UserSignupApi.Models;
-using UserSignupApi.Repository;
+using UsersAPI.Models;
+using UsersAPI.Repository;
 
-namespace UserSignupApi.Services
+namespace UsersAPI.Services
 {
     public class UserService : IUserService
     {
@@ -60,12 +60,14 @@ namespace UserSignupApi.Services
             };
 
             var userLogin = await _userRepository.LoginUser(user);
+
             if (userLogin == null)
             {
                 return null;
             }
 
             var verified = VerifyPasswordHash(request.Password, userLogin.PasswordHash, userLogin.PasswordSalt);
+
             if (!verified)
             {
                 return null;

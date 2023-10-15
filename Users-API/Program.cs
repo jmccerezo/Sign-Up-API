@@ -1,11 +1,11 @@
 global using Microsoft.EntityFrameworkCore;
-using UserSignupApi.Data;
-using UserSignupApi.Repository;
-using UserSignupApi.Services;
+using UsersAPI.Data;
+using UsersAPI.Repository;
+using UsersAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var dbConnection = builder.Environment.IsProduction() ? "ProdConnection" : builder.Environment.IsEnvironment("UAT") ? "UatConnection" : "LocalConnection";
+var dbConnection = builder.Environment.IsProduction() ? "Production" : builder.Environment.IsEnvironment("UAT") ? "UAT" : "Local";
 
 // Add services to the container.
 builder.Services.AddDbContext<DataContext>(options =>

@@ -1,7 +1,7 @@
-﻿using UserSignupApi.Data;
-using UserSignupApi.Models;
+﻿using UsersAPI.Data;
+using UsersAPI.Models;
 
-namespace UserSignupApi.Repository
+namespace UsersAPI.Repository
 {
     public class UserRepository : IUserRepository
     {

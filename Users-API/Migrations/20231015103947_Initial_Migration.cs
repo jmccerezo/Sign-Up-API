@@ -1,9 +1,8 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace UserSignupApi.Migrations
+namespace UsersAPI.Migrations
 {
     /// <inheritdoc />
     public partial class Initial_Migration : Migration

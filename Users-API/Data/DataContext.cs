@@ -1,6 +1,6 @@
-﻿using UserSignupApi.Models;
+﻿using UsersAPI.Models;
 
-namespace UserSignupApi.Data
+namespace UsersAPI.Data
 {
     public class DataContext : DbContext
     {

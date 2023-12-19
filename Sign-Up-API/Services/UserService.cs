@@ -36,54 +36,44 @@ namespace SignUpAPI.Services
 
         public async Task<User> RegisterUser(UserRegisterRequest request)
         {
-            User user = new();
-
             CreatePasswordHash(request.Password, out byte[] passwordHash, out byte[] passwordSalt);
 
-            user.FirstName = request.FirstName;
-            user.LastName = request.LastName;
-            user.Email = request.Email;
-            user.PasswordHash = passwordHash;
-            user.PasswordSalt = passwordSalt;
-            user.VerificationToken = CreateRandomToken();
+            User user = new()
+            {
+                FirstName = request.FirstName,
+                LastName = request.LastName,
+                Email = request.Email,
+                PasswordHash = passwordHash,
+                PasswordSalt = passwordSalt,
+                VerificationToken = CreateRandomToken(),
+            };
 
             await _userRepository.RegisterUser(user);
 
             return user;
         }
 
-        public async Task<User> LoginUser(UserLoginRequest request)
+        public async Task<User?> LoginUser(UserLoginRequest request)
         {
-            User user = new()
-            {
-                Email = request.Email
-            };
+            var userLogin = await _userRepository.LoginUser(request.Email);
 
-            var userLogin = await _userRepository.LoginUser(user);
+            if (userLogin == null) return null;
 
-            if (userLogin == null)
-            {
-                return null;
-            }
+            var verified = VerifyPasswordHash(request.Password, userLogin.PasswordHash!, userLogin.PasswordSalt!);
 
-            var verified = VerifyPasswordHash(request.Password, userLogin.PasswordHash, userLogin.PasswordSalt);
-
-            if (!verified)
-            {
-                return null;
-            }
+            if (!verified) return null;
 
             return userLogin;
         }
 
-        public async Task<User> VerifyUser(string token)
+        public async Task<User?> VerifyUser(string token)
         {
             var user  = await _userRepository.VerifyUser(token);
 
             return user;
         }
 
-        public async Task<User> ForgotPassword(string email)
+        public async Task<User?> ForgotPassword(string email)
         {
             User user = new()
             {
@@ -96,15 +86,16 @@ namespace SignUpAPI.Services
             return _user;
         }
 
-        public async Task<User> ResetPassword(UserResetPasswordRequest request)
+        public async Task<User?> ResetPassword(UserResetPasswordRequest request)
         {
-            User user = new();
-
             CreatePasswordHash(request.Password, out byte[] passwordHash, out byte[] passwordSalt);
 
-            user.ResetPasswordToken = request.Token;
-            user.PasswordHash = passwordHash;
-            user.PasswordSalt = passwordSalt;
+            User user = new()
+            {
+                ResetPasswordToken = request.Token,
+                PasswordHash = passwordHash,
+                PasswordSalt = passwordSalt,
+            };
 
             var _user = await _userRepository.ResetPassword(user);
 

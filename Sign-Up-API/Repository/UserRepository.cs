@@ -17,12 +17,12 @@ namespace SignUpAPI.Repository
             await _dataContext.SaveChangesAsync();
         }
 
-        public async Task<User> LoginUser(User user)
+        public async Task<User?> LoginUser(string email)
         {
-            return await _dataContext.Users.SingleOrDefaultAsync(u => u.Email == user.Email);
+            return await _dataContext.Users.SingleOrDefaultAsync(u => u.Email == email);
         }
 
-        public async Task<User> VerifyUser(string token)
+        public async Task<User?> VerifyUser(string token)
         {
             var user = await _dataContext.Users.SingleOrDefaultAsync(u => u.VerificationToken == token);
 
@@ -36,7 +36,7 @@ namespace SignUpAPI.Repository
             return user;
         }
 
-        public async Task<User> ForgotPassword(User user)
+        public async Task<User?> ForgotPassword(User user)
         {
             var _user = await _dataContext.Users.FirstOrDefaultAsync(u => u.Email == user.Email);
 
@@ -51,7 +51,7 @@ namespace SignUpAPI.Repository
             return _user;
         }
 
-        public async Task<User> ResetPassword(User user)
+        public async Task<User?> ResetPassword(User user)
         {
             var _user = await _dataContext.Users.FirstOrDefaultAsync(u => u.ResetPasswordToken == user.ResetPasswordToken);
 

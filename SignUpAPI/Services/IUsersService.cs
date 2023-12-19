@@ -2,7 +2,7 @@
 
 namespace SignUpAPI.Services
 {
-    public interface IUserService
+    public interface IUsersService
     {
         bool CheckExistingUser(string email);
         Task<User> RegisterUser(UserRegisterRequest request);

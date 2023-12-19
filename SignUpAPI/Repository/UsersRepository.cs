@@ -3,10 +3,10 @@ using SignUpAPI.Models;
 
 namespace SignUpAPI.Repository
 {
-    public class UserRepository : IUserRepository
+    public class UsersRepository : IUsersRepository
     {
         private readonly DataContext _dataContext;
-        public UserRepository(DataContext dataContext)
+        public UsersRepository(DataContext dataContext)
         {
             _dataContext = dataContext;
         }

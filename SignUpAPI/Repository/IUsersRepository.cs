@@ -2,7 +2,7 @@
 
 namespace SignUpAPI.Repository
 {
-    public interface IUserRepository
+    public interface IUsersRepository
     {
         Task RegisterUser(User user);
         Task<User?> LoginUser(string email);

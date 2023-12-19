@@ -19,10 +19,7 @@ namespace SignUpAPI.Controllers
         {
             var userExists = _userService.CheckExistingUser(request.Email);
 
-            if (userExists)
-            {
-                return BadRequest("This email is already registered, please use another email.");
-            }
+            if (userExists) return BadRequest("This email is already registered, please use another email.");
 
             var newUser = await _userService.RegisterUser(request);
 
@@ -34,15 +31,9 @@ namespace SignUpAPI.Controllers
         {
             var user = await _userService.LoginUser(request);
 
-            if (user == null)
-            {
-                return BadRequest("Incorrect Username or Password");
-            }
+            if (user == null) return BadRequest("Incorrect Username or Password");
 
-            if (user.VerifiedAt == null)
-            {
-                return BadRequest("Please verify first.");
-            }
+            if (user.VerifiedAt == null) return BadRequest("Please verify first.");
 
             return Ok($"Welcome, {user.FirstName}.");
         }
@@ -52,10 +43,7 @@ namespace SignUpAPI.Controllers
         {
             var user = await _userService.VerifyUser(token);
 
-            if (user == null)
-            {
-                return BadRequest("Invalid token.");
-            }
+            if (user == null) return BadRequest("Invalid token.");
 
             return Ok("User verified successfully.");
         }
@@ -65,10 +53,7 @@ namespace SignUpAPI.Controllers
         {
             var user = await _userService.ForgotPassword(email);
 
-            if (user == null)
-            {
-                return NotFound("User not found.");
-            }
+            if (user == null) return NotFound("User not found.");
 
             return Ok($"You may reset your password. This is your token: {user.ResetPasswordToken}");
         }
@@ -78,10 +63,7 @@ namespace SignUpAPI.Controllers
         {
             var user = await _userService.ResetPassword(request);
 
-            if (user == null || user.ResetTokenExpiry < DateTime.Now)
-            {
-                return BadRequest("Invalid token.");
-            }
+            if (user == null || user.ResetTokenExpiry < DateTime.Now) return BadRequest("Invalid token.");
 
             return Ok("Your password has been reset.");
         }

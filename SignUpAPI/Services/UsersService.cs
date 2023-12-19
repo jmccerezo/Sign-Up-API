@@ -7,10 +7,10 @@ namespace SignUpAPI.Services
 {
     public class UsersService : IUsersService
     {
-        private readonly IUsersRepository _userRepository;
-        public UsersService(IUsersRepository userRepository)
+        private readonly IUsersRepository _usersRepository;
+        public UsersService(IUsersRepository usersRepository)
         {
-            _userRepository = userRepository;
+            _usersRepository = usersRepository;
         }
         private static void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
         {
@@ -30,7 +30,7 @@ namespace SignUpAPI.Services
         }
         public bool CheckExistingUser(string email)
         {
-            var users = _userRepository.GetAllUsers().Result;
+            var users = _usersRepository.GetAllUsers().Result;
             return users.Any(u => u.Email == email);
         }
 
@@ -48,14 +48,14 @@ namespace SignUpAPI.Services
                 VerificationToken = CreateRandomToken(),
             };
 
-            await _userRepository.RegisterUser(user);
+            await _usersRepository.RegisterUser(user);
 
             return user;
         }
 
         public async Task<User?> LoginUser(UserLoginRequest request)
         {
-            var userLogin = await _userRepository.LoginUser(request.Email);
+            var userLogin = await _usersRepository.LoginUser(request.Email);
 
             if (userLogin == null) return null;
 
@@ -68,7 +68,7 @@ namespace SignUpAPI.Services
 
         public async Task<User?> VerifyUser(string token)
         {
-            var user  = await _userRepository.VerifyUser(token);
+            var user  = await _usersRepository.VerifyUser(token);
 
             return user;
         }
@@ -81,7 +81,7 @@ namespace SignUpAPI.Services
                 ResetPasswordToken = CreateRandomToken()
             };
 
-            var _user = await _userRepository.ForgotPassword(user);
+            var _user = await _usersRepository.ForgotPassword(user);
 
             return _user;
         }
@@ -97,7 +97,7 @@ namespace SignUpAPI.Services
                 PasswordSalt = passwordSalt,
             };
 
-            var _user = await _userRepository.ResetPassword(user);
+            var _user = await _usersRepository.ResetPassword(user);
 
             return _user;
         }

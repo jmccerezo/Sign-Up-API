@@ -8,20 +8,20 @@ namespace SignUpAPI.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-        private readonly IUsersService _userService;
-        public UsersController(IUsersService userService)
+        private readonly IUsersService _usersService;
+        public UsersController(IUsersService usersService)
         {
-            _userService = userService;
+            _usersService = usersService;
         }
 
         [HttpPost("register")]
         public async Task<ActionResult<User>> RegisterUser(UserRegisterRequest request)
         {
-            var userExists = _userService.CheckExistingUser(request.Email);
+            var userExists = _usersService.CheckExistingUser(request.Email);
 
             if (userExists) return BadRequest("This email is already registered, please use another email.");
 
-            var newUser = await _userService.RegisterUser(request);
+            var newUser = await _usersService.RegisterUser(request);
 
             return Ok(newUser);
         }
@@ -29,7 +29,7 @@ namespace SignUpAPI.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> LoginUser(UserLoginRequest request)
         {
-            var user = await _userService.LoginUser(request);
+            var user = await _usersService.LoginUser(request);
 
             if (user == null) return BadRequest("Incorrect Username or Password");
 
@@ -41,7 +41,7 @@ namespace SignUpAPI.Controllers
         [HttpPost("verify")]
         public async Task<IActionResult> VerifyUser(string token)
         {
-            var user = await _userService.VerifyUser(token);
+            var user = await _usersService.VerifyUser(token);
 
             if (user == null) return BadRequest("Invalid token.");
 
@@ -51,7 +51,7 @@ namespace SignUpAPI.Controllers
         [HttpPost("forgot-password")]
         public async Task<IActionResult> ForgotPassword(string email)
         {
-            var user = await _userService.ForgotPassword(email);
+            var user = await _usersService.ForgotPassword(email);
 
             if (user == null) return NotFound("User not found.");
 
@@ -61,7 +61,7 @@ namespace SignUpAPI.Controllers
         [HttpPost("reset-password")]
         public async Task<IActionResult> ResetPassword(UserResetPasswordRequest request)
         {
-            var user = await _userService.ResetPassword(request);
+            var user = await _usersService.ResetPassword(request);
 
             if (user == null || user.ResetTokenExpiry < DateTime.Now) return BadRequest("Invalid token.");
 
